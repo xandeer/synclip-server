@@ -1,0 +1,78 @@
+:PROPERTIES:
+:header-args:restclient: :var root="http://localhost:3000"
+:END:
+
+* Root
+#+BEGIN_SRC restclient
+GET :root
+#
+
+#+END_SRC
+
+#+RESULTS:
+#+begin_example
+,#+BEGIN_SRC html
+Hello World!
+<!-- GET http://localhost:3000 -->
+<!-- HTTP/1.1 200 OK -->
+<!-- Content-Length: 12 -->
+<!-- Connection: keep-alive -->
+<!-- Content-Type: text/html; charset=utf-8 -->
+<!-- Date: Sat, 12 Sep 2020 03:10:11 GMT -->
+<!-- Etag: W/"c-Lve95gjOVATpfV8EL5X4nxwjKHE" -->
+<!-- Keep-Alive: timeout=4 -->
+<!-- Proxy-Connection: keep-alive -->
+<!-- X-Powered-By: Express -->
+<!-- Request duration: 0.056652s -->
+,#+END_SRC
+#+end_example
+* Read text from clipboard
+#+BEGIN_SRC restclient
+GET :root/clipboard
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "content": "// Content-Type: application/json; charset=utf-8\n"
+}
+// GET http://localhost:3000/clipboard
+// HTTP/1.1 200 OK
+// Content-Length: 64
+// Connection: keep-alive
+// Content-Type: application/json; charset=utf-8
+// Date: Sat, 12 Sep 2020 10:48:48 GMT
+// Etag: W/"40-YW1UVLuBzI/OOyti0H4YQUoaLqs"
+// Keep-Alive: timeout=4
+// Proxy-Connection: keep-alive
+// X-Powered-By: Express
+// Request duration: 0.033934s
+#+END_SRC
+
+* Write text to clipboard
+#+BEGIN_SRC restclient
+POST :root/clipboard
+Content-Type: application/json
+
+{
+  "content": "GET :root/clipboard/text\n"
+}
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_SRC js
+{
+  "content": "GET http://localhost:3000/clipboard/text\n"
+}
+// POST http://localhost:3000/clipboard
+// HTTP/1.1 201 Created
+// Content-Length: 56
+// Connection: keep-alive
+// Content-Type: application/json; charset=utf-8
+// Date: Sat, 12 Sep 2020 10:52:01 GMT
+// Etag: W/"38-1rIQfIf3eqB/WLGSH5ROvti4c2U"
+// Keep-Alive: timeout=4
+// Proxy-Connection: keep-alive
+// X-Powered-By: Express
+// Request duration: 0.061567s
+#+END_SRC
